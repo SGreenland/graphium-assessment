@@ -27,52 +27,56 @@ export default function FindTeacher() {
       body: JSON.stringify(body),
     });
 
-    const teachers = await response.json();
+    if (response.ok) {
+      const teachers = await response.json();
 
-    new ClipboardJS(".btn-clipboard");
+      new ClipboardJS(".btn-clipboard");
 
-    //if matches found render teachers else say no matches found
-    let i = 0;
+      //if matches found render teachers else say no matches found
+      let i = 0;
 
-    teachers.length
-      ? setResults(() =>
-          teachers.map((teacher) => (
-            <div className="card mt-4 shadow-sm">
-              <div className="card-header">{teacher.name}</div>
-              <ul className="list-group list-group-flush">
-                <li key={Math.random() * 1000} className="list-group-item">
-                  £{teacher.price}(ph)
-                </li>
-                <li
-                  id={"teacherEmail" + i++}
-                  key={Math.random() * 1000}
-                  className="list-group-item email d-flex justify-content-between align-items-center"
-                >
-                  <div>{teacher.email}</div>
-                  <button
-                    className="btn btn-sm btn-light border-dark rounded btn-clipboard d-flex"
-                    data-clipboard-action="copy"
+      teachers.length
+        ? setResults(() =>
+            teachers.map((teacher) => (
+              <div className="card mt-4 shadow-sm">
+                <div className="card-header">{teacher.name}</div>
+                <ul className="list-group list-group-flush">
+                  <li key={Math.random() * 1000} className="list-group-item">
+                    £{teacher.price}(ph)
+                  </li>
+                  <li
+                    id={"teacherEmail" + i++}
+                    key={Math.random() * 1000}
+                    className="list-group-item email d-flex justify-content-between align-items-center"
                   >
-                    Copy
-                  </button>
-                </li>
-              </ul>
+                    <div>{teacher.email}</div>
+                    <button
+                      className="btn btn-sm btn-light border-dark rounded btn-clipboard d-flex"
+                      data-clipboard-action="copy"
+                    >
+                      Copy
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ))
+          )
+        : setResults(
+            <div className="mt-4 text-center">
+              <h3>No matches found!</h3>
             </div>
-          ))
-        )
-      : setResults(
-          <div className="mt-4 text-center">
-            <h3>No matches found!</h3>
-          </div>
+          );
+
+      //set copy target to corresponding email address
+
+      document
+        .querySelectorAll("button.btn-clipboard")
+        .forEach((el) =>
+          el.setAttribute("data-clipboard-target", `#${el.parentNode.id}`)
         );
-
-    //set copy target to corresponding email address
-
-    document
-      .querySelectorAll("button.btn-clipboard")
-      .forEach((el) =>
-        el.setAttribute("data-clipboard-target", `#${el.parentNode.id}`)
-      );
+    } else {
+      alert(`${response.status}: ${response.statusText}`);
+    }
   }
 
   return (

@@ -7,9 +7,9 @@ export default function AvPriceGraph() {
     const height = document.getElementById("priceGraph").offsetHeight;
     const response = await fetch("/av_price");
 
-    const avPrices = await response.json();
-
     if (response.ok) {
+      const avPrices = await response.json();
+
       const root = d3
         .hierarchy(avPrices)
         .sum((d) => d.avg)
@@ -53,6 +53,8 @@ export default function AvPriceGraph() {
         })
         .attr("font-size", "15px")
         .attr("fill", "white");
+    } else {
+      alert(`${response.status}: ${response.statusText}`);
     }
 
     const graphSize = d3.selectAll("rect").size();

@@ -22,7 +22,8 @@ app.post("/signup", async (req, res) => {
 
     res.status(200).send("Thanks for joining!");
   } catch (error) {
-    console.log(error);
+    res.status(500).send();
+    console.log(error.message);
   }
 });
 
@@ -37,6 +38,7 @@ app.post("/search", async (req, res) => {
     );
     res.json(matchedTeachers.rows);
   } catch (error) {
+    res.status(500).send();
     console.log(error.message);
   }
 });
@@ -73,7 +75,8 @@ app.get("/instrument_count", async (req, res) => {
       { inst: "vox", ...voxCount.rows[0] },
     ]);
   } catch (error) {
-    console.log(error);
+    res.status(500).send();
+    console.log(error.message);
   }
 });
 
@@ -109,7 +112,8 @@ app.get("/location_count", async (req, res) => {
       { loc: "Edinburgh", ...ednCount.rows[0] },
     ]);
   } catch (error) {
-    console.log(error);
+    res.status(500).send();
+    console.log(error.message);
   }
 });
 
@@ -122,6 +126,7 @@ app.get("/av_price", async (req, res) => {
     );
     res.json({ children: avCostperLoc.rows });
   } catch (error) {
-    console.log(error);
+    res.status(500).send();
+    console.log(error.message);
   }
 });

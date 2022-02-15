@@ -14,18 +14,16 @@ function SignUpForm() {
     //stop page reloading on form-submission
     e.preventDefault();
 
-    try {
-      const body = { name, email, location, inst, price };
-      const response = await fetch("/signup", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (response.ok) {
-        $("#modal").show();
-      }
-    } catch (error) {
-      console.log(error.message);
+    const body = { name, email, location, inst, price };
+    const response = await fetch("/signup", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (response.ok) {
+      $("#modal").show();
+    } else {
+      alert(`${response.status}: ${response.statusText}`);
     }
   }
 

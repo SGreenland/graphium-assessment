@@ -7,10 +7,12 @@ function LocatGraph() {
   async function getLocationCount() {
     const response = await fetch("/location_count");
 
-    const locationCount = await response.json();
-
     if (response.ok) {
+      const locationCount = await response.json();
+
       setLocations(locationCount);
+    } else {
+      alert(`${response.status}: ${response.statusText}`);
     }
   }
 
