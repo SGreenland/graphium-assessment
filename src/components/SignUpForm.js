@@ -93,11 +93,10 @@ function SignUpForm() {
           onSubmit={signUp}
         >
           <div className="form-row">
-            <label htmlFor="Name" placeholder="Name">
-              Name:
-            </label>
+            <label htmlFor="Name">Name:</label>
             <input
               required
+              placeholder="Name"
               id="Name"
               value={name}
               className="form-control-lg w-100"
@@ -108,11 +107,10 @@ function SignUpForm() {
             />
           </div>
           <div className="form-row">
-            <label htmlFor="Email" placeholder="Email">
-              Email:
-            </label>
+            <label htmlFor="Email">Email:</label>
             <input
               required
+              placeholder="Email"
               id="Email"
               value={email}
               className="form-control-lg w-100"
