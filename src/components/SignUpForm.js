@@ -93,7 +93,9 @@ function SignUpForm() {
           onSubmit={signUp}
         >
           <div className="form-row">
-            <label htmlFor="Name">Name:</label>
+            <label htmlFor="Name" placeholder="Name">
+              Name:
+            </label>
             <input
               required
               id="Name"
@@ -106,7 +108,9 @@ function SignUpForm() {
             />
           </div>
           <div className="form-row">
-            <label htmlFor="Email">Email:</label>
+            <label htmlFor="Email" placeholder="Email">
+              Email:
+            </label>
             <input
               required
               id="Email"
