@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5432;
 
 app.listen(port);
 
@@ -10,6 +10,10 @@ app.use(express.json());
 app.use(cors());
 
 // sign-up route
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/signup", async (req, res) => {
   try {
