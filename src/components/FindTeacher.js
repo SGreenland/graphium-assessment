@@ -33,26 +33,26 @@ export default function FindTeacher() {
       new ClipboardJS(".btn-clipboard");
 
       //if matches found render teachers else say no matches found
-      let i = 0;
 
       teachers.length
         ? setResults(() =>
             teachers.map((teacher) => (
-              <div className="card mt-4 shadow-sm">
+              <div key={teacher.id} className="card mt-4 shadow-sm">
                 <div className="card-header">{teacher.name}</div>
                 <ul className="list-group list-group-flush">
-                  <li key={Math.random() * 1000} className="list-group-item">
-                    £{teacher.price}(ph)
-                  </li>
+                  <li className="list-group-item">£{teacher.price}(ph)</li>
                   <li
-                    id={"teacherEmail" + i++}
-                    key={Math.random() * 1000}
+                    id={teacher.name.replace(" ", "")}
                     className="list-group-item email d-flex justify-content-between align-items-center"
                   >
                     <div>{teacher.email}</div>
                     <button
                       className="btn btn-sm btn-light border-dark rounded btn-clipboard d-flex"
                       data-clipboard-action="copy"
+                      data-clipboard-target={`#${teacher.name.replace(
+                        " ",
+                        ""
+                      )}`}
                     >
                       Copy
                     </button>
@@ -66,14 +66,6 @@ export default function FindTeacher() {
               <h3>No matches found!</h3>
             </div>
           );
-
-      //set copy target to corresponding email address
-
-      document
-        .querySelectorAll("button.btn-clipboard")
-        .forEach((el) =>
-          el.setAttribute("data-clipboard-target", `#${el.parentNode.id}`)
-        );
     } else {
       alert(`${response.status}: ${response.statusText}`);
     }
